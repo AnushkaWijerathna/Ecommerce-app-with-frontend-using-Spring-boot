@@ -1,5 +1,6 @@
 package com.university.ecom_app.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +26,9 @@ public class Product {
     private String brand;
     private BigDecimal price;
     private String category;
+
+    //this will make the date appear in dd-mm-yyyy format in the front end by saving as this in the DB
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date releaseDate;
     private boolean availability;
     private int quantity;
