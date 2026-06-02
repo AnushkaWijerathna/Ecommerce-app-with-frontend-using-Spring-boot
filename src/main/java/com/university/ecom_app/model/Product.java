@@ -1,10 +1,6 @@
 package com.university.ecom_app.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,8 +24,16 @@ public class Product {
     private String category;
 
     //this will make the date appear in dd-mm-yyyy format in the front end by saving as this in the DB
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date releaseDate;
     private boolean availability;
     private int quantity;
+
+    private String imageName;
+    private String imageType;
+
+    @Lob //LargeObject = Lob...used when storing large objects like images in databases
+    private byte[] imageData;
+
 }
+
