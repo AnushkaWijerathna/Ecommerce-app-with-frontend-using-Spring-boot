@@ -1,0 +1,35 @@
+ @PathVariable int id
+
+This grabs the id directly from the URL. If the user goes to /product/5, this parameter captures the number 5 so your code knows exactly which product to update in the database.
+
+@RequestPart
+
+When you submit a form that contains both regular text data (like a product's name, price, or description) AND a file (like a .jpg or .png), you cannot send it as a simple JSON package.
+You have to send it as something called multipart/form-data.
+
+Search Bar
+
+To create a search bar in spring boot use a 'keyword', variable manage it, and create a special query in the repository interface to use that 'keyword' variable to access
+    the List of Products.
+Use JPQL query language to write the query in the Repository.
+first Create the Draft of the query use '@Query' annotation, then controller, then service, then the query it self.
+The query is " @Query("SELECT p FROM Product p WHERE" +
+              "LOWER(p.name) LIKE LOWER(CONCAT('%' :keyword '%')) OR" +
+              LOWER(p.brand) LIKE LOWER(CONCAT('%' :keyword '%'))" "
+
+It defines a custom database query to search for products by name,brand etc... making the search case-insensitive and matching partial words.
+:keyword: The colon (:) denotes a named parameter. This is a placeholder that will be replaced by the actual string variable passed into your repository method.
+
+CONCAT('%', :keyword, '%'): The CONCAT function glues strings together. The % symbol is a wildcard that means "any characters can go here."
+By wrapping your keyword in percents (%keyword%), you are telling the database: "Find any product name where the keyword appears anywhere inside it.
+
+////Spring Security
+
+add spring security dependency
+ <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+
+* Spring Security Automatically creates logIn and logOut forms and even manage sessions. You can then work with them to handle user logIn and signIn
+*
