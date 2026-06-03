@@ -32,4 +32,61 @@ add spring security dependency
     </dependency>
 
 * Spring Security Automatically creates logIn and logOut forms and even manage sessions. You can then work with them to handle user logIn and signIn
-*
+
+     ///Servlets
+
+    A Servlet is a Java program that runs on a web server and acts as a middleman between a web browser (the client) and a database or application on that server.
+
+    While servlets can technically respond to any type of request, they are almost exclusively used to handle HTTP requests and generate dynamic web content. If you have ever filled out an online form, logged into a website, or searched a database, a Servlet (or a technology built on top of Servlets) might have been processing your request behind the scenes.
+
+    How Servlets Work
+    When you interact with a web page, a specific sequence of events occurs:
+
+    The Request: The user's web browser sends an HTTP request to the web server (e.g., clicking "Submit" on a login page).
+
+    The Container: The web server receives the request and hands it off to a Servlet Container (software like Apache Tomcat or Jetty, which is responsible for managing Java Servlets).
+
+    Processing: The container identifies the correct Servlet for the job and passes the request to it. The Servlet processes the incoming data, which often involves communicating with a database, executing business logic, or verifying credentials.
+
+    The Response: Once the work is done, the Servlet dynamically generates a response—usually an HTML page or JSON data—and hands it back to the web server.
+
+    Delivery: The web server sends this generated response back over the internet to the user's browser, where it is displayed.
+
+    The Servlet Life Cycle
+    A Servlet is entirely managed by the Servlet Container. Its life cycle consists of three core methods:
+
+    init(): This method is called exactly once when the Servlet is first loaded into memory. It is used for initial setup, like establishing a database connection.
+
+    service(): This is the engine of the Servlet. It is called every time the server receives a request for this specific Servlet. It determines what kind of HTTP request it is (like GET or POST) and executes the appropriate logic. Multiple requests run concurrently on separate threads.
+
+    destroy(): This method is called once at the end of the Servlet's life (usually when the server shuts down), allowing it to close database connections and clean up resources gracefully.
+
+    Why are Servlets important?
+    Performance: In older web technologies (like CGI), the server created a new, heavy operating system process for every single user request. Servlets use lightweight Java threads, meaning a single Servlet instance can handle thousands of concurrent users efficiently.
+
+    Portability: Because they are written in Java, Servlets follow the "write once, run anywhere" philosophy. A Servlet written on a Windows machine will run perfectly on a Linux server.
+
+    Foundation: Even if modern Java developers are using high-level frameworks like Spring Boot to build web applications, those frameworks are actually built entirely on top of the underlying Servlet API.
+
+    Every controller is converted into a servlet and all of the controllers are inside servlet container, front controller manages all the incoming requests.
+    The Servlet Filter: Java's True "Middleware" Function
+    A Filter is a Java class that sits in front of a Servlet. When a request comes in, it passes through the Filter first.
+
+    Authentication: A Filter can check, "Does this request have a valid login token?" If yes, it passes the request to the Servlet. If no, it blocks the request and redirects the user to a login page.
+
+    Logging: A Filter can log the user's IP address and the time of the request, then pass it along to the Servlet.
+
+    Data Modification: A Filter can compress the Servlet's outgoing response (like zipping it) to make it load faster for the user.
+
+    The Bottom Line: A Servlet acts as a middleware technology connecting the front-end to the back-end. But if you want to write what modern developers call a "middleware function" (code that intercepts requests), you would write a Servlet Filter.
+
+///Session
+
+    Sessions in Java Servlets:
+    A session is created to track a user's state (like their login status) across multiple requests.
+
+    Filters: HttpServletRequest objects pass through Filters automatically. Filters often inspect the request to see if a valid session exists before allowing the user to access protected pages.
+
+    Lifecycle: If a user logs out (session.invalidate()), or opens a different web browser, the server will not recognize them and a brand new session must be created.
+
+    Retrieving the ID: You can print the unique Session ID by calling request.getSession().getId().
