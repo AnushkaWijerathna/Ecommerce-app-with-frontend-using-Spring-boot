@@ -27,9 +27,16 @@ public class ProductService {
     //Need to convert the imageFIle into byte[] and then save all the image data into the product object containing all other details as well
     public Product addProduct(Product product, MultipartFile imageFile) throws IOException {
 
-        product.setImageName(imageFile.getOriginalFilename());
-        product.setImageType(imageFile.getContentType());
-        product.setImageData(imageFile.getBytes());
+        if (imageFile != null && !imageFile.isEmpty()) {
+            product.setImageName(imageFile.getOriginalFilename());
+            product.setImageType(imageFile.getContentType());
+            product.setImageData(imageFile.getBytes());
+        }
+        else {
+            product.setImageName(null);
+            product.setImageType(null);
+            product.setImageData(null);
+        }
         return repo.save(product);
     }
 

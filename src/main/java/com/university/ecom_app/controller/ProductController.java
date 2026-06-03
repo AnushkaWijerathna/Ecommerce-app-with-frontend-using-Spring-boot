@@ -2,9 +2,11 @@ package com.university.ecom_app.controller;
 
 import com.university.ecom_app.model.Product;
 import com.university.ecom_app.service.ProductService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,6 +21,7 @@ public class ProductController {
 
     private ProductService service;
 
+
     public ProductController(ProductService service) {
         this.service = service;
     }
@@ -28,6 +31,10 @@ public class ProductController {
         return "Hello world";
     }
 
+    @GetMapping("/home")
+    public String goHome() {
+        return "Welcome to the E-Commerce API Home!";
+    }
     //Use "ResponseEntity<>" to Controll the status code when sending HttpRequest
 
     //get all products
@@ -120,12 +127,16 @@ public class ProductController {
     }
 
     @GetMapping("/products/search")
-    public ResponseEntity<List<Product>>searchByKeyword(String keyword){
+    public ResponseEntity<List<Product>>searchByKeyword(@RequestParam("keyword") String keyword){
 
         System.out.println("Searching with "+ keyword);
         List<Product> product = service.searchByKeyword(keyword);
         return new ResponseEntity<>(product,HttpStatus.OK);
     }
 
+    @GetMapping("/csrf-token")
+    public CsrfToken getCsrf(HttpServletRequest request){
 
+        return (CsrfToken) request.getAttribute("_csrf");
+    }
 }
