@@ -90,3 +90,16 @@ add spring security dependency
     Lifecycle: If a user logs out (session.invalidate()), or opens a different web browser, the server will not recognize them and a brand new session must be created.
 
     Retrieving the ID: You can print the unique Session ID by calling request.getSession().getId().
+
+    Annotations used in spring security
+
+    @Configuration: This tells Spring Boot, "Hey, this class contains bean definitions (objects you need to manage) and configuration settings. Read this during startup."
+    @EnableWebSecurity: This tells Spring to turn off its default, auto-configured security (which usually locks down everything) and instead use the custom security rules you are about to define in this class.
+    @Bean: This registers the returned SecurityFilterChain object into the Spring context so the framework can use it globally.\
+
+////CSRF
+
+    CSRF stands for Cross-Site Request Forgery. By default, Spring expects a CSRF token for POST/PUT/DELETE requests.
+    In modern REST APIs that communicate with a separate frontend (like React),
+    we usually disable this because we don't rely on traditional browser session cookies for state management, or we handle tokens differently.
+
